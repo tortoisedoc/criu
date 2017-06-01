@@ -472,6 +472,8 @@ proc-self01:		override CFLAGS += -D PROC_SELF01
 pidns03:		CFLAGS += -pthread
 pidns03:		LDFLAGS += -pthread
 
+shm-unaligned:		CFLAGS += -DZDTM_SHM_UNALIGNED
+
 $(LIB):	force
 	$(Q) $(MAKE) -C $(LIBDIR)
 
