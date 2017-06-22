@@ -2407,6 +2407,9 @@ int cr_restore_tasks(void)
 	if (kerndat_init())
 		goto err;
 
+	if (lsm_check_opts())
+		goto err;
+
 	timing_start(TIME_RESTORE);
 
 	if (cpu_init() < 0)
