@@ -66,6 +66,7 @@ struct kerndat_s {
 	struct vdso_symtable	vdso_sym_compat;
 #endif
 #endif
+	int lsm;
 };
 
 extern struct kerndat_s kdat;
