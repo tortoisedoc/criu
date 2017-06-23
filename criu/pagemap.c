@@ -577,8 +577,8 @@ more:
 
 		if (ret != piov->end - piov->from) {
 			if (ret < 0) {
-				pr_err("Can't read async pr bytes (%zd / %ju read, %ju off, %d iovs)\n",
-						ret, piov->end - piov->from, piov->from, piov->nr);
+				pr_perror("Can't read async pr bytes (%ju need, %ju off, %d iovs)\n",
+						piov->end - piov->from, piov->from, piov->nr);
 				return -1;
 			}
 
