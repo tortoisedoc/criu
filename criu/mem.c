@@ -730,8 +730,8 @@ static int premap_private_vma(struct pstree_item *t, struct vma_area *vma, void 
 
 	vma->e->status |= VMA_PREMMAPED;
 	vma->premmaped_addr = (unsigned long) addr;
-	pr_debug("\tpremap %#016"PRIx64"-%#016"PRIx64" -> %016lx\n",
-		vma->e->start, vma->e->end, (unsigned long)addr);
+	pr_debug("\tpremap %#016"PRIx64"-%#016"PRIx64" -> %016lx (%lu pages)\n",
+		vma->e->start, vma->e->end, (unsigned long)addr, nr_pages);
 
 	if (vma_has_guard_gap_hidden(vma)) { /* Skip gurad page */
 		vma->e->start += PAGE_SIZE;
