@@ -730,10 +730,12 @@ static int premap_private_vma(struct pstree_item *t, struct vma_area *vma, void 
 
 	vma->e->status |= VMA_PREMMAPED;
 	vma->premmaped_addr = (unsigned long) addr;
-	pr_debug("\tpremap %#016"PRIx64"-%#016"PRIx64" -> %016lx (%lu pages)\n",
-		vma->e->start, vma->e->end, (unsigned long)addr, nr_pages);
+	pr_debug("\tpremap %#016"PRIx64"-%#016"PRIx64" -> %016lx-%016lx (%lu pages)\n",
+		vma->e->start, vma->e->end, (unsigned long)addr,
+		(unsigned long)addr + size, nr_pages);
 
 	if (vma_has_guard_gap_hidden(vma)) { /* Skip gurad page */
+		pr_debug("`- gpage!\n");
 		vma->e->start += PAGE_SIZE;
 		vma->premmaped_addr += PAGE_SIZE;
 	}
@@ -882,6 +884,10 @@ static int restore_priv_vma_content(struct pstree_item *t, struct page_read *pr)
 				vma = vma_next(vma);
 			}
 
+			pr_info("Read contents for %016lx-%016lx vma\n",
+					(unsigned long)vma->e->start,
+					(unsigned long)vma->e->end);
+
 			/*
 			 * Make sure the page address is inside existing VMA
 			 * and the VMA it refers to still private one, since
@@ -973,6 +979,7 @@ static int restore_priv_vma_content(struct pstree_item *t, struct page_read *pr)
 		}
 	}
 
+	pr_info("Sync reads\n");
 err_read:
 	if (pr->sync(pr))
 		return -1;
