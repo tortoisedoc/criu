@@ -1683,26 +1683,28 @@ def print_error(line):
 
 
 def grep_errors(fname):
-	first = True
-	print_next = False
-	before = []
+#	first = True
+#	print_next = False
+#	before = []
+#	for l in open(fname):
+#		before.append(l)
+#		if len(before) > 5:
+#			before.pop(0)
+#		if "Error" in l:
+#			if first:
+#				print_fname(fname, 'log')
+#				print_sep("grep Error", "-", 60)
+#				first = False
+#			for i in before:
+#				print_next = print_error(i)
+#			before = []
+#		else:
+#			if print_next:
+#				print_next = print_error(l)
+#	if not first:
 	for l in open(fname):
-		before.append(l)
-		if len(before) > 5:
-			before.pop(0)
-		if "Error" in l:
-			if first:
-				print_fname(fname, 'log')
-				print_sep("grep Error", "-", 60)
-				first = False
-			for i in before:
-				print_next = print_error(i)
-			before = []
-		else:
-			if print_next:
-				print_next = print_error(l)
-	if not first:
-		print_sep("ERROR OVER", "-", 60)
+		print_error(l)
+	print_sep("ERROR OVER", "-", 60)
 
 
 def run_tests(opts):

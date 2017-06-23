@@ -577,8 +577,9 @@ more:
 
 		if (ret != piov->end - piov->from) {
 			if (ret < 0) {
-				pr_perror("Can't read async pr bytes (%ju need, %ju off, %d iovs)\n",
+				pr_perror("Can't read async pr bytes (%ju need, %ju off, %d iovs)",
 						piov->end - piov->from, piov->from, piov->nr);
+				pr_err("First dst address: %lx\n", piov->to[0].iov_base);
 				return -1;
 			}
 
