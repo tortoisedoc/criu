@@ -759,8 +759,12 @@ static int kerndat_detect_stack_guard_gap(void)
 		}
 	}
 
-	if (detected)
+	if (detected) {
+		pr_info("Kernel stack page is %s\n",
+				kdat.stack_guard_gap_hidden ?
+				"hidden" : "visible");
 		ret = 0;
+	}
 
 err:
 	munmap(mem, 4096);
